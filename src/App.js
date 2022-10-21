@@ -5,19 +5,20 @@ import bg from './mainBg.png'
 import {useState} from "react"
 //import {a,b} from './data.js';
 import {data,site} from './data.js';
-import Product from './component/product.js';
+import Product from './routes/product.js';
 
 // 라우팅
-import {Routes, Route, Link} from 'react-router-dom'
+import {Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom'
 
 // 컴포넌트
-import Detail from './component/detail.js';
+import Detail from './routes/detail.js';
 
 
 function App() {
 
   let [shoes] = useState(data)
   let [imgSrc] = useState(site)
+  let navigate = useNavigate();
 
   return (
     <div className="App">
@@ -25,8 +26,8 @@ function App() {
           <Container>
             <Navbar.Brand href="#home">MyProtein</Navbar.Brand>
             <Nav className="me-auto">
-              <Link to="/" className='navbar_menu'>홈</Link>
-              <Link to="/detail" className='navbar_menu'>상세페이지</Link>
+              <Nav.Link onClick={()=>{ navigate('/') }}>홈</Nav.Link>
+              <Nav.Link onClick={()=>{ navigate('/detail')}}>상세페이지</Nav.Link>
             </Nav>
           </Container>
         </Navbar>
@@ -52,6 +53,7 @@ function App() {
             <Detail 상품={shoes[1]}></Detail>
           }/>
           <Route path="/about" element={<div>about</div>}/>
+          <Route path="*" element={<div>없는 페이지예요</div>}/>
         </Routes>
 
         
